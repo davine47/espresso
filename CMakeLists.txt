@@ -2,7 +2,7 @@ project(espresso C)
 cmake_minimum_required(VERSION 3.10)
 
 add_executable(
-  espresso
+  espresso.bin 
   espresso/cofactor.c
   espresso/cols.c
   espresso/compl.c
@@ -33,10 +33,10 @@ add_executable(
   espresso/solution.c
   espresso/sparse.c
   espresso/unate.c)
-set_property(TARGET espresso PROPERTY C_STANDARD 99)
-
+set_property(TARGET espresso.bin PROPERTY C_STANDARD 99)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -fsanitize=address")
 include(GNUInstallDirs)
-install(TARGETS espresso RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS espresso.bin RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 # documentation
 option(BUILD_DOC "Build documentation." ON)
@@ -226,6 +226,6 @@ foreach(
   tlex/Z5xp1.pla
   tlex/Z9sym.pla)
   add_test(run_${PLA} sh -c
-           "./espresso < ${CMAKE_CURRENT_SOURCE_DIR}/examples/${PLA}")
+           "./espresso.bin < ${CMAKE_CURRENT_SOURCE_DIR}/examples/${PLA}")
   set_tests_properties(run_${PLA} PROPERTIES TIMEOUT 10)
 endforeach()

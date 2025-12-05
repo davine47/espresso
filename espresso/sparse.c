@@ -18,13 +18,17 @@ pcover make_sparse(pcover F, pcover D, pcover R) {
 
     do {
         F = mv_reduce(F, D);
-        if (cost.total == best_cost.total)
+        if (cost.total == best_cost.total) {
+            printf("break1 \n");
             break;
+        }
         copy_cost(&cost, &best_cost);
 
         F = expand(F, R, TRUE);
-        if (cost.total == best_cost.total)
+        if (cost.total == best_cost.total) {
+            printf("break2 \n");
             break;
+        }
         copy_cost(&cost, &best_cost);
     } while (TRUE);
 

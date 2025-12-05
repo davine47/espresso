@@ -47,14 +47,14 @@ pcover espresso(pcover F, pcover D1, pcover R) {
 begin:
     Fsave = sf_save(F); /* save original function */
     D = sf_save(D1);    /* make a scratch copy of D */
-
+    printf("inner espresso \n");
     /* Setup has always been a problem */
     cover_cost(F, &cost);
     if (unwrap_onset && (cube.part_size[cube.num_vars - 1] > 1) &&
         (cost.out != cost.cubes * cube.part_size[cube.num_vars - 1]) &&
         (cost.out < 5000))
         F = sf_contain(unravel(F, cube.num_vars - 1));
-
+    printf("inner espresso2 \n");
     /* Initial expand and irredundant */
     foreach_set(F, last, p) {
         RESET(p, PRIME);
@@ -65,6 +65,7 @@ begin:
     E = essential(&F, &D);
 
     cover_cost(F, &cost);
+    printf("inner espresso3 \n");
     do {
         /* Repeat inner loop until solution becomes "stable" */
         do {
@@ -81,16 +82,16 @@ begin:
 
     } while (cost.cubes < best_cost.cubes ||
              (cost.cubes == best_cost.cubes && cost.total < best_cost.total));
-
+    printf("inner espresso4 \n");
     /* Append the essential cubes to F */
     F = sf_append(F, E); /* disposes of E */
-
+    printf("inner espresso5 \n");
     /* Free the D which we used */
     free_cover(D);
-
+    printf("inner espresso6 \n");
     /* Attempt to make the PLA matrix sparse */
     F = make_sparse(F, D1, R);
-
+    printf("inner espresso7 \n");
     /*
      *  Check to make sure function is actually smaller !!
      *  This can only happen because of the initial unravel.  If we fail,
