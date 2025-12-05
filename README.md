@@ -17,7 +17,7 @@ InstalledDir: /Library/Developer/CommandLineTools/usr/bin
 ### 出错现象
 目前 macos_debug 分支上版本将stdin改为了文件输入，但出错现象一致
 ```shell
-￥ sh -c "./espresso.bin ./examples/examples/alu1"
+$ sh -c "./espresso.bin ./examples/examples/alu1"
 zsh: trace trap  sh -c "./espresso.bin ./examples/examples/alu1"
 ```
 
